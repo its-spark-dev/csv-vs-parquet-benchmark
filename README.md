@@ -46,6 +46,19 @@ You can customize the script to test:
 - Memory usage via psutil
 - Comparison between Polars and Pandas (optional)
 
+### 🔍 About `benchmark.py`
+
+The `benchmark.py` script:
+- Loads all CSV or Parquet files in the specified directory using Polars
+- Measures elapsed time for each batch load
+- Optionally simulates cache and no-cache conditions (e.g., after reboot)
+- Can be extended to:
+  - Log memory usage
+  - Compare against Pandas
+  - Plot results using matplotlib
+
+> You can modify the script to match your benchmarking goals more closely.
+
 ---
 
 ## 📊 Results (TBA)
