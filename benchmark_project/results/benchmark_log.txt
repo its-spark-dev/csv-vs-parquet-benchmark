@@ -1,12 +1,8 @@
-Benchmark run at 2025-05-23 15:41:20.120994
-CSV folder read time     : 0.269 seconds
-Parquet folder read time : 0.92 seconds
+Benchmark run at 2025-05-28 13:56:58.063413 (Cold Cache)
+CSV    → Time: 0.292 sec | Memory: 32.61 MB
+Parquet→ Time: 0.823 sec | Memory: 205.07 MB
 ----------------------------------------
-Benchmark run at 2025-05-23 15:47:24.245770
-CSV    → Time: 0.274 sec | Memory: 103.01 MB
-Parquet→ Time: 0.898 sec | Memory: 485.45 MB
-----------------------------------------
-Benchmark run at 2025-05-23 15:51:26.614029 (Warm Cache)
-CSV    → Time: 0.264 sec | Memory: 28.01 MB
-Parquet→ Time: 0.84 sec | Memory: 206.21 MB
+Benchmark run at 2025-05-28 13:57:05.748473 (Warm Cache)
+CSV    → Time: 0.258 sec | Memory: 14.85 MB
+Parquet→ Time: 0.823 sec | Memory: 132.87 MB
 ----------------------------------------
