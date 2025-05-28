@@ -99,4 +99,4 @@ See the LICENSE file for full details.
 
 ## 🙋‍♂️ Maintainer
 
-Created by Sanghyeon Park
+Created by Sang Park
