@@ -8,10 +8,11 @@ This project benchmarks the performance of CSV and Parquet file formats using [P
 
 ```
 benchmark_project/
-├── csv_data/ # 50 CSV files
-├── parquet_data/ # 50 Parquet files
-├── benchmark.py # Main benchmarking script
-├── results/ # Benchmark results and plots
+├── csv_data/               # 50 CSV files
+├── parquet_data/           # 50 Parquet files
+├── benchmark.py            # Main benchmarking script
+├── results/                # Benchmark logs, .prof files, and plots
+├── snakeviz_viewer_all.py  # Auto-opens SnakeViz for all profiles
 └── README.md
 ```
 
@@ -19,84 +20,109 @@ benchmark_project/
 
 ## ⚙️ Setup
 
-### 1. Create a virtual environment (optional but recommended)
+### 1. Create a virtual environment (recommended)
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
+venv\Scripts\activate  # on Windows
+# or
+source venv/bin/activate  # on Unix/Mac
 ```
 
 ### 2. Install dependencies
 
 ```bash
-pip install polars pandas psutil matplotlib
+pip install polars pandas psutil matplotlib snakeviz gprof2dot
 ```
 
 ---
 
 ## 🚀 Usage
-Run the benchmark:
 
+### Run benchmark
 ```bash
-python benchmark.py
+# Run with cold cache (e.g., after reboot)
+python benchmark.py --cache cold
+
+# Run with warm cache (e.g., second run without reboot)
+python benchmark.py --cache warm
 ```
-You can customize the script to test:
-- Initial load time (cold cache)
-- Repeated load time (warm cache)
-- Memory usage via psutil
-- Comparison between Polars and Pandas (optional)
 
-### 🔍 About `benchmark.py`
+### Visualize profiler output
 
-The `benchmark.py` script:
-- Loads all CSV or Parquet files in the specified directory using Polars
-- Measures elapsed time for each batch load
-- Optionally simulates cache and no-cache conditions (e.g., after reboot)
-- Can be extended to:
-  - Log memory usage
-  - Compare against Pandas
-  - Plot results using matplotlib
+Use one of the following options:
 
-> You can modify the script to match your benchmarking goals more closely.
+#### ▶️ Option A: SnakeViz (web-based, interactive)
+```bash
+python snakeviz_viewer_all.py
+```
+- Opens all `.prof` files in browser tabs automatically
+
+#### 🖼️ Option B: gprof2dot (static image)
+```bash
+gprof2dot -f pstats results/profile_1.prof | dot -Tpng -o results/profile_1.png
+```
 
 ---
 
-## 📊 Results (TBA)
+## 🔍 About `benchmark.py`
 
-| Format  | Avg Load Time (Cold) | Avg Load Time (Warm) | Avg File Size |
-| ------- | -------------------- | -------------------- | ------------- |
-| CSV     | X.X sec              | X.X sec              | XXX MB        |
-| Parquet | X.X sec              | X.X sec              | XX MB         |
-
-These values are illustrative. Your results may vary depending on hardware and dataset.
-
----
-
-## 📌 Why Parquet? (EXAMPLE)
-
-Parquet is a columnar storage format optimized for:
-- Faster load times
-- Lower disk I/O
-- Smaller file size (especially for repeated fields or numeric data)
-- Efficient filtering and projection (read only required columns)
+The benchmark script:
+- Loads all files in `csv_data/` and `parquet_data/` using Polars
+- Measures **execution time** and **virtual memory (VMS)**
+- Appends results to `results/benchmark_log.txt`
+- Generates `.prof` files for profiling via `cProfile`
+- Labels each run as Cold or Warm based on cache simulation strategy
 
 ---
 
-## 🧪 Benchmarked Using
+## 📊 Sample Results (example)
 
-- Python 3.10+
-- Polars v0.20+
-- Windows 10 / macOS (cross-platform)
+| Cache Type | Format  | Time (sec) | Memory (MB) |
+|------------|---------|------------|-------------|
+| Cold       | CSV     | 0.292      | 32.61       |
+| Cold       | Parquet | 0.823      | 205.07      |
+| Warm       | CSV     | 0.258      | 14.85       |
+| Warm       | Parquet | 0.823      | 132.87      |
+
+> Note: Your results may differ depending on system specs and file structure.
+
+---
+
+## 📌 Why Parquet? (Context)
+
+While Parquet is typically optimized for:
+- Large-scale data pipelines
+- Selective column reads (projection)
+- Compression and disk efficiency
+
+CSV may outperform Parquet for:
+- Small or medium-size files
+- Full-table reads
+- Environments where simplicity and transparency matter
+
+---
+
+## 🧪 Benchmark Environment
+
+- OS: Windows 10 Pro, Version 22H2, Build 19045.5854
+- Python: 3.13.3 (64-bit)
+- CPU: AMD Ryzen 5 5600X — 6 physical cores, 12 threads @ 3.70 GHz
+- RAM: 15.92 GB
+- GPU: NVIDIA GeForce RTX 3060
 
 ---
 
 ## 🧾 License
 
-This project is licensed under the MIT License.
-See the LICENSE file for full details.
+This project is licensed under the MIT License. See the LICENSE file for full details.
 
 ---
 
 ## 🙋‍♂️ Maintainer
 
-Created by Sang Park
+Created and maintained by Sang Park
+
+---
+
+*"Tested like an engineer, visualized like a designer, reported like a professional."*
