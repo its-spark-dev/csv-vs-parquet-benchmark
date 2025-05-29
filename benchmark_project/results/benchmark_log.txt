@@ -1,8 +1,0 @@
-Benchmark run at 2025-05-28 13:56:58.063413 (Cold Cache)
-CSV    → Time: 0.292 sec | Memory: 32.61 MB
-Parquet→ Time: 0.823 sec | Memory: 205.07 MB
-----------------------------------------
-Benchmark run at 2025-05-28 13:57:05.748473 (Warm Cache)
-CSV    → Time: 0.258 sec | Memory: 14.85 MB
-Parquet→ Time: 0.823 sec | Memory: 132.87 MB
-----------------------------------------
