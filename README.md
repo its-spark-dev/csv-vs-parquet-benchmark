@@ -1,6 +1,6 @@
 # CSV vs Parquet Benchmark
 
-This project benchmarks the performance of CSV and Parquet file formats using [Polars](https://www.pola.rs/) in Python. The focus is on **file loading speed** and **memory efficiency**, both **with and without OS-level cache**, across 50 identically structured files in each format.
+This project benchmarks the performance of CSV and Parquet file formats using [Polars](https://www.pola.rs/) in Python. The focus is on **file loading speed**, **memory efficiency** and **runtime profiling**, evaluated under both **cold** (after reboot) and **warm** (cached) OS-level conditions using 50 identically structured files in each format.
 
 ---
 
@@ -13,6 +13,7 @@ benchmark_project/
 ├── benchmark.py            # Main benchmarking script
 ├── results/                # Benchmark logs, .prof files, and plots
 ├── snakeviz_viewer_all.py  # Auto-opens SnakeViz for all profiles
+├── analyze_profile.py      # Text + image analysis of .prof output
 └── README.md
 ```
 
@@ -34,6 +35,7 @@ source venv/bin/activate  # on Unix/Mac
 ```bash
 pip install polars pandas psutil matplotlib snakeviz gprof2dot
 ```
+Ensure Graphviz is installed and dot is accessible in your terminal.
 
 ---
 
@@ -76,30 +78,45 @@ The benchmark script:
 
 ---
 
-## 📊 Sample Results (example)
+## 📊 Sample Results (from actual runs)
 
-| Cache Type | Format  | Time (sec) | Memory (MB) |
-|------------|---------|------------|-------------|
-| Cold       | CSV     | 0.292      | 32.61       |
-| Cold       | Parquet | 0.823      | 205.07      |
-| Warm       | CSV     | 0.258      | 14.85       |
-| Warm       | Parquet | 0.823      | 132.87      |
+| Cache Type | Format  | Avg Time (sec) | Avg Memory (MB) |
+|------------|---------|----------------|-----------------|
+| Cold       | CSV     | -0.29          | -32.6           |
+| Cold       | Parquet | -0.82          | -205.1          |
+| Warm       | CSV     | -0.25          | -14.8           |
+| Warm       | Parquet | -0.82          | -132.9          |
 
-> Note: Your results may differ depending on system specs and file structure.
+> Note: Despite Parquet’s common reputation for superior performance, CSV outperformed it in our environment for small files. See profiling details below.
 
 ---
 
-## 📌 Why Parquet? (Context)
+## 🔬 Profiling Analysis (Why CSV was faster)
 
-While Parquet is typically optimized for:
-- Large-scale data pipelines
-- Selective column reads (projection)
-- Compression and disk efficiency
+SnakeViz and cProfile revealed the following:
+- Parquet reading in Polars uses lazy evaluation, triggering .collect() to materialize the full dataset
+- This collect() step accounted for ~1.64s out of 2.15s total read time
+- CSV reading uses eager evaluation, with no equivalent collect() stage
+- For many small files, CSV’s simplicity and reduced overhead result in faster performance
 
-CSV may outperform Parquet for:
-- Small or medium-size files
-- Full-table reads
-- Environments where simplicity and transparency matter
+### 📷 Figure: SnakeViz Flame Graph Example
+
+> ![image](https://github.com/user-attachments/assets/0da3fb3f-dac1-4ad8-9ccc-1c9be3cd3a33)
+> **Figure.** Flame graph showing the call stack for reading Parquet files. Most time is spent in collect() during LazyFrame execution.
+
+---
+
+## 📌 When Parquet Is Still Better
+
+While CSV excelled in our experiment, Parquet remains ideal for:
+- Large-scale, columnar queries
+- Distributed data processing
+- I/O-constrained workloads with selective reads
+
+Use CSV for:
+- Simpler local analytics
+- Small- to mid-sized batch jobs
+- Environments requiring immediate data access
 
 ---
 
