@@ -82,10 +82,10 @@ The benchmark script:
 
 | Cache Type | Format  | Avg Time (sec) | Avg Memory (MB) |
 |------------|---------|----------------|-----------------|
-| Cold       | CSV     | -0.29          | -32.6           |
-| Cold       | Parquet | -0.82          | -205.1          |
-| Warm       | CSV     | -0.25          | -14.8           |
-| Warm       | Parquet | -0.82          | -132.9          |
+| Cold       | CSV     | 0.29           | 32.6            |
+| Cold       | Parquet | 0.82           | 205.1           |
+| Warm       | CSV     | 0.25           | 14.8            |
+| Warm       | Parquet | 0.82           | 132.9           |
 
 > Note: Despite Parquet’s common reputation for superior performance, CSV outperformed it in our environment for small files. See profiling details below.
 
