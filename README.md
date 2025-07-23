@@ -115,7 +115,7 @@ While CSV excelled in our experiment, Parquet remains ideal for:
 
 Use CSV for:
 - Simpler local analytics
-- Small- to mid-sized batch jobs
+- Small to mid-sized batch jobs
 - Environments requiring immediate data access
 
 ---
