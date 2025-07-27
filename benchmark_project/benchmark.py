@@ -6,8 +6,8 @@ import argparse
 from datetime import datetime
 import polars as pl
 
-# Set the base directory
-BASE_DIR = "C:/Users/spark/Documents/Git/csv-vs-parquet-benchmark/benchmark_project"
+# Set the base directory (current file location)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CSV_DIR = os.path.join(BASE_DIR, "csv_data")
 PARQUET_DIR = os.path.join(BASE_DIR, "parquet_data")
 RESULTS_PATH = os.path.join(BASE_DIR, "results", "benchmark_log.txt")
