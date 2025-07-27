@@ -162,3 +162,6 @@ sample_data/
 
 # PyPI config
 .pypirc
+
+# macOS Finder metadata (should not be tracked by git)
+.DS_Store
