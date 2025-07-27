@@ -1,6 +1,5 @@
 import os
 import subprocess
-import webbrowser
 
 # Directory where .prof files are stored
 PROFILE_DIR = "results"
