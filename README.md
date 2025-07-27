@@ -26,14 +26,14 @@ This repository rigorously benchmarks the performance of CSV and Parquet file fo
 
 ```
 benchmark_project/
-├── benchmark.py             # Main benchmarking script
-├── analyze_profile.py       # Summarize cProfile results, generate images
+├── benchmark.py               # Main benchmarking script
+├── analyze_profile.py         # Summarize cProfile results, generate images
 ├── generate_profile_images.py # Batch conversion to PNG via gprof2dot
-├── snakeviz_viewer_all.py   # Opens all profiles in browser via SnakeViz
-├── visualize_results.py     # Plots time/memory graphs from logs
-├── requirements.txt         # Required Python packages
-├── results/                 # Benchmark logs, .prof files, profile images (auto-generated)
-├── sample_data/             # (Optional) Example CSV/Parquet for demo (not included by default)
+├── snakeviz_viewer_all.py     # Opens all profiles in browser via SnakeViz
+├── visualize_results.py       # Plots time/memory graphs from logs
+├── requirements.txt           # Required Python packages
+├── results/                   # Benchmark logs, .prof files, profile images (auto-generated)
+├── sample_data/               # (Optional) Example CSV/Parquet for demo (not included by default)
 └── README.md
 
 docs/
@@ -177,8 +177,8 @@ Parquet still excels for:
 
 ## 📄 Full Technical Report (Downloads)
 
-* [📄 Download PDF: Challenging the Parquet Dogma – Tech Report](docs/challenging-the-parquet-dogma-tech-report.pdf)
-* [📝 Download Apple Pages (editable): Challenging the Parquet Dogma – Tech Report](docs/challenging-the-parquet-dogma-tech-report.pages)
+* [📄 Download PDF: Challenging the Parquet Dogma – Tech Report](https://github.com/its-spark-dev/csv-vs-parquet-benchmark/blob/main/benchmark_project/docs/challenging-the-parquet-dogma-tech-report.pages.pdf)
+* [📝 Download Apple Pages (editable): Challenging the Parquet Dogma – Tech Report](https://github.com/its-spark-dev/csv-vs-parquet-benchmark/blob/main/benchmark_project/docs/challenging-the-parquet-dogma-tech-report.pages)
 
   * The full report includes background, benchmarking methodology, results, profiling, and recommendations for real-world file format selection.
 
@@ -195,7 +195,7 @@ Parquet still excels for:
 
 ## 📝 License
 
-[MIT License](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)
+[MIT License](LICENSE)
 
 ---
 
