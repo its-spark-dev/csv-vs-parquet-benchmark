@@ -10,9 +10,13 @@ import polars as pl
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CSV_DIR = os.path.join(BASE_DIR, "csv_data")
 PARQUET_DIR = os.path.join(BASE_DIR, "parquet_data")
-RESULTS_PATH = os.path.join(BASE_DIR, "results", "benchmark_log.txt")
+RESULTS_DIR = os.path.join(BASE_DIR, "results")
+RESULTS_PATH = os.path.join(RESULTS_DIR, "benchmark_log.txt")
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-PROFILE_PATH = os.path.join(BASE_DIR, "results", "profile_results.prof")
+PROFILE_PATH = os.path.join(RESULTS_DIR, "profile_results.prof")
+
+for path in [CSV_DIR, PARQUET_DIR, RESULTS_DIR]:
+    os.makedirs(path, exist_ok=True)
 
 # Argument parser to select cache state
 def parse_args():
