@@ -56,8 +56,8 @@ cd csv-vs-parquet-benchmark/benchmark_project
 
 ```bash
 python -m venv venv
-source venv/bin/activate   # On Unix/macOS
-venv\Scripts\activate     # On Windows
+source venv/bin/activate # On Unix/macOS
+venv\Scripts\activate    # On Windows
 ```
 
 3. **Install dependencies:**
